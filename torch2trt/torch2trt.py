@@ -211,6 +211,7 @@ def attach_converter(ctx, method, converter, method_str):
 
     return wrapper
 
+import warnings
 
 class ConversionHook(object):
     """Attaches TensorRT converter to PyTorch method call"""
@@ -227,6 +228,7 @@ class ConversionHook(object):
         try:
             self.method_impl = eval(self.method_str)
         except AttributeError:
+            warnings.warn('Could not load attribute: {}'.format(self.method_str))
             self.method_impl = None
         
         if self.method_impl:

@@ -51,7 +51,5 @@ from .chunk import *
 from .unary import *
 
 
-try:
-    from .interpolate import *
-except:
-    pass
+from .interpolate import *
+

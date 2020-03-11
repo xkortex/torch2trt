@@ -1,0 +1,25 @@
+ARG BASE_IMAGE_REGISTRY=nvcr.io/nvidia
+ARG BASE_NAME=tensorrt
+ARG BASE_TAG=19.08-py3
+FROM ${BASE_IMAGE_REGISTRY}/${BASE_NAME}:${BASE_TAG} as base
+
+RUN     apt-get update -q \
+    &&  apt-get install -y \
+            jq \
+            libprotobuf* \
+            protobuf-compiler \
+            ninja-build \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /src/requirements.txt
+
+RUN pip install --no-cache-dir -r \
+    /src/requirements.txt
+
+COPY . /src/torch2trt
+
+WORKDIR /ws/torch2trt
+
+RUN     cp -R /src/torch2trt /ws/
+
+RUN     python setup.py install --plugins

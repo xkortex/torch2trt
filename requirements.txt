@@ -1,0 +1,6 @@
+torch
+torchvision
+protobuf
+grpcio-tools
+termcolor
+numpy

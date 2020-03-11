@@ -1,0 +1,18 @@
+---
+
+version: '3.7'
+services:
+  torch2trt:
+    build:
+      context: .
+      dockerfile: torch2trt.df
+      network: host
+    image: xkortex/torch2trt
+    tty: true
+    network_mode: host
+    volumes:
+      - "$HOME:$HOME:ro"
+      - "$PWD:/src/torch2trt:ro"
+#      - "/dock/genicam-kinetic:/dock/genicam-kinetic"
+    command: ["bash"]
+...
